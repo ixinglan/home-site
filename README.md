@@ -113,8 +113,10 @@ scripts/
 
 ## ⚠️ 占位内容清单（上线前替换）
 
-- `products.json` 中 `focus-deck`（macOS）和 `forge-kit`（Java 后端）是**演示用占位产品**，请替换成真实产品
-- 所有产品封面当前是脚本生成的渐变占位图，替换为真实截图效果最好
+- 产品数据均为真实项目（GitHub: ixinglan），`version` / `releaseDate` / App Store 链接等字段留空或待补
+- `minicoze` 与 `launchfreedom` 标记为 `wip`（开发中），demo 站点尚未部署
+- 图片来源：`scripts/compose-shots.py` 从本地各项目仓库的真实截图合成（竖屏截图自动并排）；
+  CrossTerminal 无现成截图，用仓库真实 AppIcon + README 事实生成信息卡（`scripts/crossterminal-cards.mjs`）
 - `site.config.json` 里的域名是占位值；页脚版权年份写 `{year}` 会自动替换为当前年份
 - `public/favicon.svg` 是通用图标，可换成自己的 logo
 

@@ -1,334 +1,454 @@
 [
   {
-    "id": "cadence",
-    "name": "Cadence",
-    "tagline": "步频器 · 把节奏精确到毫秒",
-    "category": "ios",
-    "platforms": [
-      "ios"
-    ],
+    "id": "pichome",
+    "name": "PicHome",
+    "tagline": "多图床管理平台 · 上传一次，链接随取",
+    "category": "macos",
+    "platforms": ["macos"],
     "status": "released",
-    "featured": true,
+    "featured": false,
     "order": 10,
-    "version": "1.2.0",
-    "releaseDate": "2026-09-01",
-    "accent": "#FF6B35",
-    "summary": "给跑步、骑行和乐器练习用的节拍器，硬件时钟排程，长时间不掉拍。",
-    "description": "练跑步时步频总是不稳，练琴时节拍越走越飘——市面上的节拍器要么是网页版延迟大，要么是 App 里塞满了广告。\n\nCadence 只做一件事：给出一个绝对可靠的节拍。音轨走 AVAudioEngine 的硬件时钟排程，不依赖主线程刷新，连续跑一小时误差仍在毫秒级。\n\n支持锁屏与小组件控制，戴上耳机出门就能用。",
-    "highlights": [
-      {
-        "icon": "sparkles",
-        "title": "亚毫秒级排程",
-        "desc": "AVAudioEngine 硬件时钟驱动，避开主线程抖动，长时间不掉拍。"
-      },
-      {
-        "icon": "phone",
-        "title": "锁屏与小组件",
-        "desc": "支持灵动岛实时活动与桌面小组件，抬手就能调 BPM。"
-      },
-      {
-        "icon": "code",
-        "title": "完全离线",
-        "desc": "不联网、不请求任何权限、不含统计与广告 SDK。"
-      }
-    ],
-    "tags": [
-      "SwiftUI",
-      "Swift 6",
-      "AVAudioEngine",
-      "WidgetKit"
-    ],
-    "media": {
-      "cover": "assets/images/products/cadence/cover.svg",
-      "poster": "assets/images/products/cadence/poster.svg",
-      "gallery": [
-        "assets/images/products/cadence/shot-01.svg",
-        "assets/images/products/cadence/shot-02.svg",
-        "assets/images/products/cadence/shot-03.svg"
-      ]
-    },
-    "links": [
-      {
-        "type": "appstore",
-        "label": "App Store",
-        "href": "https://apps.apple.com/",
-        "primary": true
-      },
-      {
-        "type": "github",
-        "label": "源码",
-        "href": "https://github.com/ixinglan"
-      }
-    ],
-    "metrics": [
-      {
-        "label": "累计下载",
-        "value": "12.4k"
-      },
-      {
-        "label": "评分",
-        "value": "4.8"
-      }
-    ],
-    "mockup": {
-      "kind": "metronome",
-      "title": "Cadence",
-      "subtitle": "毫秒级节拍，锁屏也能调"
-    }
-  },
-  {
-    "id": "pixel-blog",
-    "name": "Pixel Blog",
-    "tagline": "个人博客 · 用 Hugo 搭的静态站",
-    "category": "web",
-    "platforms": [
-      "web"
-    ],
-    "status": "released",
-    "order": 20,
-    "version": "3.1.0",
-    "releaseDate": "2025-11-18",
+    "version": "",
+    "releaseDate": "2026-09-10",
     "accent": "#38BDF8",
-    "summary": "写了五年的技术博客，Markdown 写作 + 静态生成，一篇文章一次 git push。",
-    "description": "从 WordPress 迁到 Hexo，最后落在 Hugo：没有数据库、没有后台，所有文章都是仓库里的 Markdown 文件。\n\n构建一次不到一秒，全文搜索走本地索引，图片走 PicGo 图床。服务器只跑一个编译版的 nginx，月成本一杯咖啡。",
+    "summary": "支持接入多个图床的管理平台：批量同步上传 / 删除，直接取 CDN、Markdown、HTML 链接，还带原生 skill 可给 AI Agent 当工具用。",
+    "description": "写博客、发帖、喂 AI 都离不开贴图，但图床一多就乱：有的传这里、有的传那里，链接格式还各不相同。\n\nPicHome 把图床收进一个桌面端：一次配置多个图床，上传时同步分发，删除时批量清理；任何一张图都能直接复制 CDN / Markdown / HTML 三种格式的链接。\n\n桌面端用 Tauri 打包，后端是 Django + SQLite，Docker Compose 一键起。它还内置了原生 skill，可以配置成 AI Agent 的图片上传工具——我自己写博客时，Agent 就是用它来传图的。",
     "highlights": [
       {
-        "icon": "code",
-        "title": "Markdown 写作流",
-        "desc": "Hugo frontmatter 模板 + 脚本化新建，写作不用碰 HTML。"
-      },
-      {
         "icon": "sparkles",
-        "title": "毫秒级构建",
-        "desc": "两百多篇文章全量构建 0.8 秒，改动即刷新。"
+        "title": "多图床同步管理",
+        "desc": "一套界面管所有图床，上传、删除（支持批量）同步下发，不用再挨个网站跑。"
       },
       {
-        "icon": "globe",
-        "title": "自托管",
-        "desc": "跑在自己的 nginx 上，图片走 PicGo + 图床，不依赖第三方平台。"
+        "icon": "link",
+        "title": "三种链接格式即取",
+        "desc": "CDN 直链、Markdown、HTML 一步复制，贴博客、贴文档、贴评论区都不用再改格式。"
+      },
+      {
+        "icon": "code",
+        "title": "AI Agent 就绪",
+        "desc": "内置原生 skill，可作为 Agent 工具被调用，AI 写作流程里直接完成传图。"
       }
     ],
-    "tags": [
-      "Hugo",
-      "Markdown",
-      "Nginx",
-      "PicGo"
-    ],
+    "tags": ["Tauri", "Python", "Django", "Docker"],
     "media": {
-      "cover": "assets/images/products/pixel-blog/cover.svg",
-      "poster": "assets/images/products/pixel-blog/poster.svg",
+      "cover": "assets/images/products/pichome/cover.png",
+      "poster": "assets/images/products/pichome/poster.png",
       "gallery": [
-        "assets/images/products/pixel-blog/shot-01.svg",
-        "assets/images/products/pixel-blog/shot-02.svg",
-        "assets/images/products/pixel-blog/shot-03.svg"
+        "assets/images/products/pichome/shot-01.png",
+        "assets/images/products/pichome/shot-02.png",
+        "assets/images/products/pichome/shot-03.png"
       ]
     },
     "links": [
       {
-        "type": "website",
-        "label": "访问博客",
-        "href": "https://blog.zhaojq.top",
-        "primary": true
-      },
-      {
         "type": "github",
         "label": "源码",
-        "href": "https://github.com/ixinglan"
+        "href": "https://github.com/ixinglan/picHome",
+        "primary": true
       }
     ],
-    "metrics": [
-      {
-        "label": "文章",
-        "value": "216"
-      }
-    ],
+    "metrics": [],
     "mockup": {
       "kind": "feed",
-      "title": "Pixel Blog",
-      "subtitle": "Markdown 写作，一次 git push"
+      "title": "PicHome",
+      "subtitle": "多图床同步上传 · 链接随取"
     }
   },
   {
-    "id": "img-proxy",
-    "name": "Background Image Proxy",
-    "tagline": "随机壁纸 API · 一行 URL 换一张图",
-    "category": "web",
-    "platforms": [
-      "web"
-    ],
-    "status": "released",
-    "order": 30,
-    "version": "0.9.4",
-    "releaseDate": "2026-04-06",
-    "accent": "#34D399",
-    "summary": "把壁纸接口包成一次 302 重定向，带 referer / origin 白名单，防止图片被盗链。",
-    "description": "自己博客和几个小站都要用随机背景图，每次都写一遍抓取逻辑太蠢了。\n\n于是有了这个：一个 Python 服务，请求进来直接 302 到当天的 Bing 壁纸，同时校验 referer 与 origin 白名单，非白名单站点拿不到图。\n\nuv 管理依赖，Docker Compose 一键起，镜像只有 40MB。",
-    "highlights": [
-      {
-        "icon": "globe",
-        "title": "302 直跳",
-        "desc": "不中转流量，服务端只做校验与重定向，带宽成本为零。"
-      },
-      {
-        "icon": "code",
-        "title": "防盗链",
-        "desc": "referer / origin 白名单可配，非法来源直接 403。"
-      },
-      {
-        "icon": "desktop",
-        "title": "容器化部署",
-        "desc": "Docker Compose 一行起服务，uv 管依赖，冷启动 0.3 秒。"
-      }
-    ],
-    "tags": [
-      "Python",
-      "FastAPI",
-      "Docker",
-      "uv"
-    ],
-    "media": {
-      "cover": "assets/images/products/img-proxy/cover.svg",
-      "poster": "assets/images/products/img-proxy/poster.svg",
-      "gallery": [
-        "assets/images/products/img-proxy/shot-01.svg",
-        "assets/images/products/img-proxy/shot-02.svg",
-        "assets/images/products/img-proxy/shot-03.svg"
-      ]
-    },
-    "links": [
-      {
-        "type": "github",
-        "label": "源码",
-        "href": "https://github.com/ixinglan",
-        "primary": true
-      },
-      {
-        "type": "website",
-        "label": "在线演示",
-        "href": ""
-      }
-    ],
-    "metrics": [
-      {
-        "label": "日均请求",
-        "value": "3.2k"
-      }
-    ],
-    "mockup": {
-      "kind": "terminal",
-      "title": "Background Image Proxy",
-      "subtitle": "302 直跳 + 防盗链白名单"
-    }
-  },
-  {
-    "id": "focus-deck",
-    "name": "FocusDeck",
-    "tagline": "macOS 菜单栏专注计时器",
+    "id": "nbkey",
+    "name": "NBKey",
+    "tagline": "macOS 键鼠组合映射 · 系统快捷键的外挂一层",
     "category": "macos",
-    "platforms": [
-      "macos"
-    ],
-    "status": "wip",
-    "order": 40,
-    "version": "0.3.0",
-    "releaseDate": "2026-08-12",
+    "platforms": ["macos"],
+    "status": "released",
+    "order": 20,
+    "version": "1.0.1",
+    "releaseDate": "2026-09-20",
     "accent": "#A78BFA",
-    "summary": "常驻菜单栏的番茄钟，不占 Dock、不弹通知，专注时屏幕上只留一个数字。",
-    "description": "示例占位产品：用来演示 macOS 分类的展示效果，请替换成你自己的产品。\n\n计划中的能力：菜单栏倒计时、SwiftUI 可视化统计、与系统专注模式联动。",
+    "summary": "拦截你自定义的「键盘 / 鼠标 + 修饰键」组合，代为执行任意系统快捷键。比如按住 Control 点一下鼠标左键就切到上一个桌面。",
+    "description": "macOS 的快捷键只能绑「键盘组合」，但有些操作用鼠标 + 修饰键才最顺手。\n\nNBKey 是一个纯菜单栏小工具（不出现在 Dock）：它全局监听并拦截你指定的组合键 / 鼠标键，命中后模拟按下目标快捷键——真正把原始事件吃掉，比如 ⌃+鼠标右键不会再弹菜单，而是直接切换桌面。\n\n细节都按系统行为做：切换桌面走原生手势路径（带动画、台前调度正常）；多显示器只切鼠标所在那块屏；边界不循环。DMG 为通用二进制，已 Developer ID 签名并公证。",
     "highlights": [
       {
         "icon": "desktop",
-        "title": "常驻菜单栏",
-        "desc": "不占 Dock 栏位，点一下就展开控制面板。"
+        "title": "鼠标也能当修饰键",
+        "desc": "键盘组合 + 鼠标左 / 右 / 中 / 侧键任意组合，支持直接录制，不用背键位。"
       },
       {
         "icon": "sparkles",
-        "title": "零打扰",
-        "desc": "专注期间不弹系统通知，只做轻微声音提示。"
+        "title": "切桌面走原生路径",
+        "desc": "动作是 ⌃←/⌃→ 时不模拟按键，直接驱动系统桌面手势：带动画，台前调度不乱。"
+      },
+      {
+        "icon": "code",
+        "title": "规则可开关可持久化",
+        "desc": "每条规则独立开关，组合重复明确标「冲突」，规则保存在本地 JSON，重装不丢。"
       }
     ],
-    "tags": [
-      "SwiftUI",
-      "macOS",
-      "MenuBarExtra"
-    ],
+    "tags": ["Swift", "SwiftUI", "macOS", "CGEvent"],
     "media": {
-      "cover": "assets/images/products/focus-deck/cover.svg",
-      "poster": "assets/images/products/focus-deck/poster.svg",
+      "cover": "assets/images/products/nbkey/cover.png",
+      "poster": "assets/images/products/nbkey/poster.png",
       "gallery": [
-        "assets/images/products/focus-deck/shot-01.svg",
-        "assets/images/products/focus-deck/shot-02.svg",
-        "assets/images/products/focus-deck/shot-03.svg"
+        "assets/images/products/nbkey/shot-01.png",
+        "assets/images/products/nbkey/shot-02.png",
+        "assets/images/products/nbkey/shot-03.png"
       ]
     },
     "links": [
       {
         "type": "github",
         "label": "源码",
-        "href": "https://github.com/ixinglan"
+        "href": "https://github.com/ixinglan/NBKey",
+        "primary": true
       }
     ],
     "metrics": [],
     "mockup": {
       "kind": "timer",
-      "title": "FocusDeck",
-      "subtitle": "常驻菜单栏的专注计时"
+      "title": "NBKey",
+      "subtitle": "鼠标 + 修饰键，也能触发系统快捷键"
     }
   },
   {
-    "id": "forge-kit",
-    "name": "ForgeKit",
-    "tagline": "Java 后端脚手架 · 把重复的部分一次写完",
-    "category": "java",
-    "platforms": [
-      "java"
-    ],
-    "status": "wip",
-    "order": 50,
-    "version": "0.4.0",
-    "releaseDate": "2026-08-28",
-    "accent": "#F89820",
-    "summary": "示例占位产品：用来演示 Java 后端分类的展示效果，请替换成你自己的项目。",
-    "description": "示例占位产品：用来演示 Java 后端分类的展示效果，请替换成你自己的项目。\n\n计划中的能力：统一返回体与全局异常处理、接口鉴权、日志链路追踪、Docker Compose 一键部署。",
+    "id": "crossterminal",
+    "name": "CrossTerminal",
+    "tagline": "访达工具栏一键打开终端 · 用完即退",
+    "category": "macos",
+    "platforms": ["macos"],
+    "status": "released",
+    "order": 30,
+    "version": "",
+    "releaseDate": "2026-09-18",
+    "accent": "#818CF8",
+    "summary": "把一个小按钮钉在访达工具栏上，点一下，当前文件夹直接在终端里打开。无 Dock、无菜单栏、不后台常驻。",
+    "description": "在访达里翻文件时，经常需要在这个目录里敲命令：复制路径、打开终端、再 cd 一遍——步骤又碎又烦。\n\nCrossTerminal 把这个动作压成一步：按住 ⌘ 把它拖进访达工具栏，以后在任何文件夹点一下图标，终端就自动 cd 到当前目录。\n\n它刻意做成「隐形」的小工具：无 Dock 图标、无菜单栏、读完目录打开终端后自动退出。内置九种终端可选（系统终端、iTerm2、Warp、Kitty、Alacritty、Ghostty、Hyper、Tabby、WezTerm），也支持在 config.json 里追加自定义终端。推送 v* tag 即触发 CI 自动编译通用二进制、签名公证并打包 DMG。",
     "highlights": [
       {
-        "icon": "java",
-        "title": "开箱即用",
-        "desc": "统一返回体、参数校验、全局异常处理，新项目不用再抄一遍。"
+        "icon": "desktop",
+        "title": "一键直达",
+        "desc": "访达工具栏点一下，当前目录直接在终端打开，省掉复制路径和 cd。"
       },
       {
         "icon": "code",
-        "title": "按需裁剪",
-        "desc": "starter 模块化，不引入的功能不会进最终产物。"
+        "title": "九种终端可选",
+        "desc": "系统终端 / iTerm2 / Warp / Kitty / Alacritty / Ghostty / Hyper / Tabby / WezTerm，改配置即换。"
+      },
+      {
+        "icon": "sparkles",
+        "title": "完全隐形",
+        "desc": "无 Dock、无菜单栏、不常驻后台，点完就退，几乎感觉不到它存在。"
       }
     ],
-    "tags": [
-      "Java 17",
-      "Spring Boot",
-      "MyBatis Plus",
-      "Docker"
-    ],
+    "tags": ["Swift 6", "SwiftUI", "AppKit", "macOS"],
     "media": {
-      "cover": "assets/images/products/forge-kit/cover.svg",
-      "poster": "assets/images/products/forge-kit/poster.svg",
+      "cover": "assets/images/products/crossterminal/cover.png",
+      "poster": "assets/images/products/crossterminal/poster.png",
       "gallery": [
-        "assets/images/products/forge-kit/shot-01.svg",
-        "assets/images/products/forge-kit/shot-02.svg",
-        "assets/images/products/forge-kit/shot-03.svg"
+        "assets/images/products/crossterminal/shot-01.png",
+        "assets/images/products/crossterminal/shot-02.png",
+        "assets/images/products/crossterminal/shot-03.png"
       ]
     },
     "links": [
       {
         "type": "github",
         "label": "源码",
-        "href": "https://github.com/ixinglan"
+        "href": "https://github.com/ixinglan/CrossTerminal",
+        "primary": true
+      }
+    ],
+    "metrics": [],
+    "mockup": {
+      "kind": "terminal",
+      "title": "CrossTerminal",
+      "subtitle": "访达一键打开终端，用完即退"
+    }
+  },
+  {
+    "id": "purecalendar",
+    "name": "简日历 PureCalendar",
+    "tagline": "iPhone 纯净日历 · 农历黄历一眼看全",
+    "category": "ios",
+    "platforms": ["ios"],
+    "status": "released",
+    "order": 40,
+    "version": "",
+    "releaseDate": "2026-09-14",
+    "accent": "#F59E0B",
+    "summary": "纯净、极简、永久无广告的 iPhone 日历：公历 + 农历 + 节日、黄历宜忌、放假调休、年视图、历史上的今天，配全套桌面 / 锁屏小组件。",
+    "description": "之前下载的「纯净版日历」后来也变成了广告满天飞，于是自己做了一个真正干净、专注的。\n\n打开即今天，月历网格上公历大字、农历节日小字；「休」标红、「调休上班」标橙，最容易被漏看的「周末却要上班」一眼分清。黄历一屏看全：干支生肖、宜忌、冲煞、值日、彭祖百忌。点顶部月份标题展开年视图，还有精选 100+ 条史实的「历史上的今天」。\n\n农历与节气用 1900–2100 查表算法（数据核对过春节、中秋、清明及各节气）；放假调休走「内置基线 + 本地缓存 + 远程 JSON」三级数据源，国务院公布次年安排后无需发版即可更新。SwiftUI + WidgetKit 纯原生，无第三方依赖，支持 VoiceOver 与 WCAG 2.1 AA 对比度。",
+    "highlights": [
+      {
+        "icon": "phone",
+        "title": "黄历 + 调休一屏看全",
+        "desc": "农历干支、宜忌、冲煞、值日，加上「休 / 班」角标，不用再开第二个 App 查。"
+      },
+      {
+        "icon": "sparkles",
+        "title": "节假日免发版更新",
+        "desc": "三级数据源（内置 + 缓存 + 远程 JSON），国务院公布后 App 自动拿到新安排。"
+      },
+      {
+        "icon": "grid",
+        "title": "全套小组件",
+        "desc": "小 / 中 / 大桌面组件 + 锁屏矩形、行内两种，主 App 预览与真机同一套实现。"
+      }
+    ],
+    "tags": ["SwiftUI", "WidgetKit", "农历", "iOS 17+"],
+    "media": {
+      "cover": "assets/images/products/purecalendar/cover.png",
+      "poster": "assets/images/products/purecalendar/poster.png",
+      "gallery": [
+        "assets/images/products/purecalendar/shot-01.png",
+        "assets/images/products/purecalendar/shot-02.png",
+        "assets/images/products/purecalendar/shot-03.png"
+      ]
+    },
+    "links": [
+      {
+        "type": "github",
+        "label": "源码",
+        "href": "https://github.com/ixinglan/PureCalendar",
+        "primary": true
+      }
+    ],
+    "metrics": [
+      {
+        "label": "农历覆盖",
+        "value": "1900–2100"
+      }
+    ],
+    "mockup": {
+      "kind": "feed",
+      "title": "简日历 PureCalendar",
+      "subtitle": "纯净无广告，农历黄历一眼看全"
+    }
+  },
+  {
+    "id": "purecadence",
+    "name": "简步频 PureCadence",
+    "tagline": "跑步节拍器 · 跟音乐一起响，不打断它",
+    "category": "ios",
+    "platforms": ["ios"],
+    "status": "released",
+    "featured": true,
+    "order": 50,
+    "version": "",
+    "releaseDate": "2026-09-14",
+    "accent": "#FF6B35",
+    "summary": "iOS 跑步节拍器：节拍用 mixWithOthers 叠在你正在听的音乐上，一秒都不打断。锁屏能控、灵动岛能看，节拍精度实测最大偏差 20.8 微秒。",
+    "description": "步频（每分钟迈多少步）比配速更能决定你跑得轻不轻松，但现成节拍器总有不顺手的点：一边听歌一边要节拍，它却要暂停你的音乐。\n\nPureCadence 的答案：会话用 .playback + .mixWithOthers，节拍叠在音乐上，音乐一秒不断。发声不用「排程队列」，而是在 AVAudioSourceNode 渲染回调里自己数采样帧，整数帧累加不换算——在输出总线实测 160 BPM 连续 24 拍，最大偏差 20.8 微秒，暂停后总线电平归零。\n\n主屏巨号数字 + 脉冲环，120–180 五档一格点选，自定义走底部弹层；5 种提示音即点即听；3-2-1 全屏倒数进节奏。锁屏有系统播放卡片（免解锁暂停/继续），灵动岛 Live Activity 显示当前 BPM，时间用系统自走字，只在离散事件时推送，避开系统更新额度。SwiftUI + Swift 6 严格并发，iOS 17+，iPhone SE 到 iPad mini 一套布局全部实测适配。",
+    "highlights": [
+      {
+        "icon": "sparkles",
+        "title": "微秒级节拍",
+        "desc": "渲染回调数帧发声，输出总线实测 24/24 拍零漏拍，最大偏差 20.8µs。"
+      },
+      {
+        "icon": "phone",
+        "title": "与音乐混音共存",
+        "desc": "mixWithOthers 让节拍叠在音乐上，系统音量说了算，跑步歌单一秒不断。"
+      },
+      {
+        "icon": "desktop",
+        "title": "锁屏 + 灵动岛",
+        "desc": "锁屏播放卡免解锁控制，灵动岛紧凑区显示 BPM，展开是完整控制面板。"
+      }
+    ],
+    "tags": ["SwiftUI", "Swift 6", "AVAudioEngine", "ActivityKit"],
+    "media": {
+      "cover": "assets/images/products/purecadence/cover.png",
+      "poster": "assets/images/products/purecadence/poster.png",
+      "gallery": [
+        "assets/images/products/purecadence/shot-01.png",
+        "assets/images/products/purecadence/shot-02.png",
+        "assets/images/products/purecadence/shot-03.png"
+      ]
+    },
+    "links": [
+      {
+        "type": "github",
+        "label": "源码",
+        "href": "https://github.com/ixinglan/PureCadence",
+        "primary": true
+      }
+    ],
+    "metrics": [
+      {
+        "label": "节拍最大偏差",
+        "value": "20.8µs"
+      }
+    ],
+    "mockup": {
+      "kind": "metronome",
+      "title": "简步频 PureCadence",
+      "subtitle": "节拍叠在音乐上，跑步歌单不断"
+    }
+  },
+  {
+    "id": "minicoze",
+    "name": "MiniCoze",
+    "tagline": "Spring AI 学习项目 · 本地迷你版 Coze",
+    "category": "java",
+    "platforms": ["java"],
+    "status": "wip",
+    "order": 60,
+    "version": "",
+    "releaseDate": "2026-08-13",
+    "accent": "#22C55E",
+    "summary": "基于 Spring AI / Spring AI Alibaba 的 AI Agent 工作台：聊天、RAG 知识库、Agent 工具调用、多模态、五种 Agent 编排、MCP 双路集成、可观测与限流。用「每学一个特性就加一块能力」的方式吃透框架。",
+    "description": "这是一个边学边做的项目：目标是「综合知识库 + 自主任务 Agent 工作台」，一个本地迷你版 Coze，每学一个 Spring AI 特性就给产品加一块能力。\n\n已经长出来的能力：SSE 流式多轮聊天（记忆落 MySQL）；RAG 知识库（Ollama bge-m3 向量化，PDF/Word/Excel/PPT 一把解析，上传去重 + 流式真进度）；Agent 工具调用（模型自主决定调什么工具、调几次，前端可视化）；多模态（qwen-vl-max 图片理解 + 通义万相文生图）；五种 Agent 编排（ReactAgent / Sequential / Routing / 手写意图路由 / Supervisor 多智能体）；MCP 跨进程工具（Python FastMCP stdio + Java SSE 双路）；结构化输出（自然语言一键解析成规整工单）；可观测（Micrometer + OpenTelemetry 导出到自托管 Langfuse）；Guardrails 输入输出双闸；Spring Security + JWT 用户体系与按天限流。\n\n技术栈：JDK 17、Spring Boot 3.5.x、Spring AI 1.1.2、Spring AI Alibaba 1.1.2.2、MySQL、Milvus（可选）、Docker Compose 一键部署。当前还在迭代中，demo 站点尚未部署。",
+    "highlights": [
+      {
+        "icon": "java",
+        "title": "五种 Agent 编排",
+        "desc": "ReactAgent / Sequential / Routing / 意图路由 / Supervisor，全部带可视化 trace 展示。"
+      },
+      {
+        "icon": "sparkles",
+        "title": "RAG 全链路",
+        "desc": "文件上传去重（SHA-256）、解析切片、bge-m3 嵌入流式真进度、Milvus / 内存向量库可切换。"
+      },
+      {
+        "icon": "code",
+        "title": "MCP 双路集成",
+        "desc": "stdio（Python FastMCP）+ SSE（Java Server）两路 MCP Server，8 个跨进程工具即插即用。"
+      }
+    ],
+    "tags": ["Spring AI", "Spring AI Alibaba", "Java 17", "MySQL"],
+    "media": {
+      "cover": "assets/images/products/minicoze/cover.png",
+      "poster": "assets/images/products/minicoze/poster.png",
+      "gallery": [
+        "assets/images/products/minicoze/shot-01.png",
+        "assets/images/products/minicoze/shot-02.png",
+        "assets/images/products/minicoze/shot-03.png"
+      ]
+    },
+    "links": [
+      {
+        "type": "github",
+        "label": "源码",
+        "href": "https://github.com/ixinglan/MiniCoze",
+        "primary": true
       }
     ],
     "metrics": [],
     "mockup": {
       "kind": "chart",
-      "title": "ForgeKit",
-      "subtitle": "统一返回体 · 链路追踪 · 一键部署"
+      "title": "MiniCoze",
+      "subtitle": "用产品吃透 Spring AI Alibaba"
+    }
+  },
+  {
+    "id": "bing-img-proxy",
+    "name": "Bing Image Proxy",
+    "tagline": "随机壁纸代理 · 一次 URL 换一张必应美图",
+    "category": "web",
+    "platforms": ["web"],
+    "status": "released",
+    "order": 70,
+    "version": "",
+    "releaseDate": "2026-09-16",
+    "accent": "#0EA5E9",
+    "summary": "一个轻量的壁纸代理服务：访问一个地址就 302 到随机 Bing 每日壁纸；seed 确定性选图、来源白名单防盗链、配置热加载、图片池接口毫秒级返回。",
+    "description": "网站想每天换一张 Bing 壁纸，直接引用 cn.bing.com 的图会踩 CORS / 防盗链的坑，图片 id 还得硬编码在前端。\n\n这个服务就是中间层：前端只请求你自己的地址，服务端随机挑一张图 302 过去。带 ?seed=xxx 时同一 seed 永远同一张图（前端可以放心缓存，点「换一张」才变）；按 Origin / Referer 白名单防盗链，支持通配子域；改 id 列表 / 白名单无需重启，按文件 mtime 热加载。\n\n图片池接口（/api/bg/image）不做跳转，直接回图并带强缓存头：服务端维护磁盘 LRU + 热池，命中缓存毫秒级返回；回源时按设备像素追加 w/h 参数让 Bing 重编码（同一张 4K 图从 3.68MB 压到 1.13MB）。图片池由 AI 自动化任务每日抓取最新壁纸 id 增量维护。FastAPI 实现，Docker Compose 一键起，本站背景图就是它在供图。",
+    "highlights": [
+      {
+        "icon": "globe",
+        "title": "随机 + 确定性两套",
+        "desc": "不带 seed 每次随机 302；带 seed 则永远同一张，前端缓存与「换一张」互不打架。"
+      },
+      {
+        "icon": "code",
+        "title": "防盗链白名单",
+        "desc": "Origin / Referer 校验，支持 *.example.com 通配子域，非白名单直接 403。"
+      },
+      {
+        "icon": "sparkles",
+        "title": "图片池 + 强缓存",
+        "desc": "磁盘 LRU + 热池预热，命中毫秒级返回；AI 任务每日增量维护壁纸池。"
+      }
+    ],
+    "tags": ["Python", "FastAPI", "Docker", "Bing"],
+    "media": {
+      "cover": "assets/images/products/bing-img-proxy/cover.png",
+      "poster": "assets/images/products/bing-img-proxy/poster.png",
+      "gallery": [
+        "assets/images/products/bing-img-proxy/shot-01.png",
+        "assets/images/products/bing-img-proxy/shot-02.png",
+        "assets/images/products/bing-img-proxy/shot-03.png"
+      ]
+    },
+    "links": [
+      {
+        "type": "github",
+        "label": "源码",
+        "href": "https://github.com/ixinglan/bing-img-proxy",
+        "primary": true
+      }
+    ],
+    "metrics": [],
+    "mockup": {
+      "kind": "terminal",
+      "title": "Bing Image Proxy",
+      "subtitle": "302 直跳随机壁纸，白名单防盗链"
+    }
+  },
+  {
+    "id": "launchfreedom",
+    "name": "LaunchFreedom",
+    "tagline": "macOS 26 启动台 · 把 Launchpad 找回来",
+    "category": "macos",
+    "platforms": ["macos"],
+    "status": "wip",
+    "order": 80,
+    "version": "",
+    "releaseDate": "2026-09-14",
+    "accent": "#6366F1",
+    "summary": "macOS 26（Tahoe）删掉了经典启动台，这个应用把它原样找回：全屏网格、分页、文件夹、拖拽整理、拼音 / 首字母搜索，五种唤出方式。开发中。",
+    "description": "macOS 26 把用了十几年的「启动台 / Launchpad」删掉了，这个应用把它原样找回来：全屏网格、分页、文件夹、拖拽整理、打字搜索，一个不少。\n\n五种唤出通道全部默认开启：全局快捷键 ⌃⌥Space（可自定义）、F4、屏幕热区（指针推到左下角 0.25 秒）、Dock 图标、菜单栏图标。搜索支持中文、全拼（jiantie）和首字母（jt）；图标拖到另一个图标上压住即建文件夹，重命名 / 隐藏 / 移入文件夹 / 卸载都在右键菜单里；方向键 + 回车全程键盘可达。\n\n设置里可调背景（系统壁纸 / 玻璃）、模糊强度、图标尺寸、每页行列数、扫描范围，还能把旧启动台的排列一次性导入（已卸载的应用自动跳过）。不改系统、不联网。Swift + SwiftUI 构建，仍在开发中。",
+    "highlights": [
+      {
+        "icon": "desktop",
+        "title": "经典启动台回归",
+        "desc": "全屏网格、分页、文件夹、拖拽整理，macOS 26 删掉的这次全找回来。"
+      },
+      {
+        "icon": "sparkles",
+        "title": "五种唤出方式",
+        "desc": "⌃⌥Space / F4 / 屏幕热区 / Dock / 菜单栏，后两条零权限，永远可用。"
+      },
+      {
+        "icon": "code",
+        "title": "拼音首字母搜索",
+        "desc": "打字即搜，中文、全拼 jiantie、首字母 jt 都能命中，Esc 逐层退出。"
+      }
+    ],
+    "tags": ["Swift", "SwiftUI", "macOS 26", "AppKit"],
+    "media": {
+      "cover": "assets/images/products/launchfreedom/cover.png",
+      "poster": "assets/images/products/launchfreedom/poster.png",
+      "gallery": [
+        "assets/images/products/launchfreedom/shot-01.png",
+        "assets/images/products/launchfreedom/shot-02.png",
+        "assets/images/products/launchfreedom/shot-03.png"
+      ]
+    },
+    "links": [
+      {
+        "type": "github",
+        "label": "源码",
+        "href": "https://github.com/ixinglan/LaunchFreedom",
+        "primary": true
+      }
+    ],
+    "metrics": [],
+    "mockup": {
+      "kind": "feed",
+      "title": "LaunchFreedom",
+      "subtitle": "把 macOS 26 删掉的启动台找回来"
     }
   }
 ]

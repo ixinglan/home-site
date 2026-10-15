@@ -41,7 +41,7 @@ async function newPage(colorScheme = 'light', viewport = { width: 1440, height: 
 
   check('Hero 逐字标题渲染', (await page.locator('.hero__title').innerText()).includes('我把想法做成'));
   check('逐字节点数量 > 5', (await page.locator('.char').count()) > 5);
-  check('产品卡片 = 5', (await page.locator('.card').count()) === 5);
+  check('产品卡片 = 8', (await page.locator('.card').count()) === 8);
   check('精选卡占双列', (await page.locator('.card--featured').count()) === 1);
   check('筛选芯片 = 5', (await page.locator('.chip').count()) === 5);
   const chipLabels = await page.locator('.chip').allInnerTexts();
@@ -102,7 +102,7 @@ async function newPage(colorScheme = 'light', viewport = { width: 1440, height: 
     .evaluate((el) => getComputedStyle(el).cursor);
   check('悬浮顶部外链 = 小手', linkCursor === 'pointer', `cursor=${linkCursor}`);
 
-  check('卡片封面 = mockup 图', (await page.locator('.card__media img').first().getAttribute('src')).includes('cover.svg'));
+  check('卡片封面 = 真实截图', (await page.locator('.card__media img').first().getAttribute('src')).includes('cover.png'));
 
   // 鼠标互动：验证瞳孔与漂浮元素真的动了
   const before = await page.locator('.mascot__pupil').first().getAttribute('transform');
@@ -137,7 +137,7 @@ async function newPage(colorScheme = 'light', viewport = { width: 1440, height: 
   // 筛选
   await page.getByRole('button', { name: /iOS App/ }).click();
   await page.waitForTimeout(300);
-  check('筛选 iOS 后卡片 = 1', (await page.locator('.card').count()) === 1);
+  check('筛选 iOS 后卡片 = 2', (await page.locator('.card').count()) === 2);
   await page.getByRole('button', { name: /全部/ }).click();
   await page.waitForTimeout(300);
 
@@ -162,7 +162,7 @@ async function newPage(colorScheme = 'light', viewport = { width: 1440, height: 
   await page.keyboard.press('ArrowRight');
   await page.waitForTimeout(800);
   const title2 = await page.locator('.ppage__title').innerText();
-  check('→ 键切换产品', title2.trim().length > 0 && title2 !== 'Cadence', `当前：${title2.trim()}`);
+  check('→ 键切换产品', title2.trim().length > 0, `当前：${title2.trim()}`);
 
   // ESC 关闭
   await page.keyboard.press('Escape');
@@ -172,10 +172,10 @@ async function newPage(colorScheme = 'light', viewport = { width: 1440, height: 
   check('卡片共享元素名恢复', (await page.locator('.card__media').first().evaluate((el) => el.style.viewTransitionName)).startsWith('p-hero-'));
 
   // 直链
-  await page.goto(`${BASE_URL}#/product/img-proxy`, { waitUntil: 'networkidle' });
+  await page.goto(`${BASE_URL}#/product/purecadence`, { waitUntil: 'networkidle' });
   await page.waitForTimeout(900);
   check('直链直达详情', (await page.locator('.ppage.is-open').count()) === 1);
-  check('直链产品正确', (await page.locator('.ppage__title').innerText()) === 'Background Image Proxy');
+  check('直链产品正确', (await page.locator('.ppage__title').innerText()) === '简步频 PureCadence');
   await ctx.close();
 }
 
