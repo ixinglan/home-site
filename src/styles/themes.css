@@ -1,0 +1,77 @@
+/* ============================================================
+   主题：亮色 / 暗色的语义色令牌
+   --accent 可被 site.config.json 的 theme.accent 覆盖（JS 注入）
+   ============================================================ */
+
+[data-theme='light'] {
+  color-scheme: light;
+
+  --bg: #f4f6fa;
+  --bg-soft: #eef2f9;
+  --bg-deep: #e7ecf5;
+  --surface: #ffffff;
+  --surface-2: #f7f9fc;
+  --surface-3: #eef1f7;
+
+  --text: #10131a;
+  --text-2: #535b6b;
+  --text-3: #8a93a5;
+
+  --border: rgba(16, 19, 26, 0.09);
+  --border-strong: rgba(16, 19, 26, 0.18);
+
+  --accent: #3d6bff;
+  --accent-2: #7b5cff;
+  --accent-ink: #ffffff;
+
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.05);
+  --shadow: 0 2px 6px rgba(16, 24, 40, 0.05), 0 14px 34px -14px rgba(16, 24, 40, 0.22);
+  --shadow-lg: 0 30px 70px -28px rgba(16, 24, 40, 0.34);
+
+  --glass: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(16, 19, 26, 0.08);
+
+  --grid-line: rgba(16, 19, 26, 0.055);
+  --particle: rgba(16, 19, 26, 0.26);
+  --glow: rgba(61, 107, 255, 0.16);
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #07090e;
+  --bg-soft: #0b0e15;
+  --bg-deep: #05070b;
+  --surface: #11151d;
+  --surface-2: #161b25;
+  --surface-3: #1d2330;
+
+  --text: #e9ecf3;
+  --text-2: #a2acbf;
+  --text-3: #6e788b;
+
+  --border: rgba(233, 236, 243, 0.1);
+  --border-strong: rgba(233, 236, 243, 0.22);
+
+  --accent: #6e9bff;
+  --accent-2: #b070ff;
+  --accent-ink: #080b11;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.4), 0 18px 44px -18px rgba(0, 0, 0, 0.8);
+  --shadow-lg: 0 34px 80px -30px rgba(0, 0, 0, 0.9);
+
+  --glass: rgba(10, 13, 19, 0.72);
+  --glass-border: rgba(233, 236, 243, 0.1);
+
+  --grid-line: rgba(233, 236, 243, 0.05);
+  --particle: rgba(233, 236, 243, 0.32);
+  --glow: rgba(110, 155, 255, 0.2);
+}
+
+/* 由 accent 派生的半透明色，JS 覆盖 --accent 后自动跟随 */
+:root {
+  --accent-soft: color-mix(in srgb, var(--accent) 14%, transparent);
+  --accent-softer: color-mix(in srgb, var(--accent) 8%, transparent);
+  --accent-line: color-mix(in srgb, var(--accent) 38%, transparent);
+}

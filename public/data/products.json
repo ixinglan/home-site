@@ -1,0 +1,334 @@
+[
+  {
+    "id": "cadence",
+    "name": "Cadence",
+    "tagline": "步频器 · 把节奏精确到毫秒",
+    "category": "ios",
+    "platforms": [
+      "ios"
+    ],
+    "status": "released",
+    "featured": true,
+    "order": 10,
+    "version": "1.2.0",
+    "releaseDate": "2026-09-01",
+    "accent": "#FF6B35",
+    "summary": "给跑步、骑行和乐器练习用的节拍器，硬件时钟排程，长时间不掉拍。",
+    "description": "练跑步时步频总是不稳，练琴时节拍越走越飘——市面上的节拍器要么是网页版延迟大，要么是 App 里塞满了广告。\n\nCadence 只做一件事：给出一个绝对可靠的节拍。音轨走 AVAudioEngine 的硬件时钟排程，不依赖主线程刷新，连续跑一小时误差仍在毫秒级。\n\n支持锁屏与小组件控制，戴上耳机出门就能用。",
+    "highlights": [
+      {
+        "icon": "sparkles",
+        "title": "亚毫秒级排程",
+        "desc": "AVAudioEngine 硬件时钟驱动，避开主线程抖动，长时间不掉拍。"
+      },
+      {
+        "icon": "phone",
+        "title": "锁屏与小组件",
+        "desc": "支持灵动岛实时活动与桌面小组件，抬手就能调 BPM。"
+      },
+      {
+        "icon": "code",
+        "title": "完全离线",
+        "desc": "不联网、不请求任何权限、不含统计与广告 SDK。"
+      }
+    ],
+    "tags": [
+      "SwiftUI",
+      "Swift 6",
+      "AVAudioEngine",
+      "WidgetKit"
+    ],
+    "media": {
+      "cover": "assets/images/products/cadence/cover.svg",
+      "poster": "assets/images/products/cadence/poster.svg",
+      "gallery": [
+        "assets/images/products/cadence/shot-01.svg",
+        "assets/images/products/cadence/shot-02.svg",
+        "assets/images/products/cadence/shot-03.svg"
+      ]
+    },
+    "links": [
+      {
+        "type": "appstore",
+        "label": "App Store",
+        "href": "https://apps.apple.com/",
+        "primary": true
+      },
+      {
+        "type": "github",
+        "label": "源码",
+        "href": "https://github.com/ixinglan"
+      }
+    ],
+    "metrics": [
+      {
+        "label": "累计下载",
+        "value": "12.4k"
+      },
+      {
+        "label": "评分",
+        "value": "4.8"
+      }
+    ],
+    "mockup": {
+      "kind": "metronome",
+      "title": "Cadence",
+      "subtitle": "毫秒级节拍，锁屏也能调"
+    }
+  },
+  {
+    "id": "pixel-blog",
+    "name": "Pixel Blog",
+    "tagline": "个人博客 · 用 Hugo 搭的静态站",
+    "category": "web",
+    "platforms": [
+      "web"
+    ],
+    "status": "released",
+    "order": 20,
+    "version": "3.1.0",
+    "releaseDate": "2025-11-18",
+    "accent": "#38BDF8",
+    "summary": "写了五年的技术博客，Markdown 写作 + 静态生成，一篇文章一次 git push。",
+    "description": "从 WordPress 迁到 Hexo，最后落在 Hugo：没有数据库、没有后台，所有文章都是仓库里的 Markdown 文件。\n\n构建一次不到一秒，全文搜索走本地索引，图片走 PicGo 图床。服务器只跑一个编译版的 nginx，月成本一杯咖啡。",
+    "highlights": [
+      {
+        "icon": "code",
+        "title": "Markdown 写作流",
+        "desc": "Hugo frontmatter 模板 + 脚本化新建，写作不用碰 HTML。"
+      },
+      {
+        "icon": "sparkles",
+        "title": "毫秒级构建",
+        "desc": "两百多篇文章全量构建 0.8 秒，改动即刷新。"
+      },
+      {
+        "icon": "globe",
+        "title": "自托管",
+        "desc": "跑在自己的 nginx 上，图片走 PicGo + 图床，不依赖第三方平台。"
+      }
+    ],
+    "tags": [
+      "Hugo",
+      "Markdown",
+      "Nginx",
+      "PicGo"
+    ],
+    "media": {
+      "cover": "assets/images/products/pixel-blog/cover.svg",
+      "poster": "assets/images/products/pixel-blog/poster.svg",
+      "gallery": [
+        "assets/images/products/pixel-blog/shot-01.svg",
+        "assets/images/products/pixel-blog/shot-02.svg",
+        "assets/images/products/pixel-blog/shot-03.svg"
+      ]
+    },
+    "links": [
+      {
+        "type": "website",
+        "label": "访问博客",
+        "href": "https://blog.zhaojq.top",
+        "primary": true
+      },
+      {
+        "type": "github",
+        "label": "源码",
+        "href": "https://github.com/ixinglan"
+      }
+    ],
+    "metrics": [
+      {
+        "label": "文章",
+        "value": "216"
+      }
+    ],
+    "mockup": {
+      "kind": "feed",
+      "title": "Pixel Blog",
+      "subtitle": "Markdown 写作，一次 git push"
+    }
+  },
+  {
+    "id": "img-proxy",
+    "name": "Background Image Proxy",
+    "tagline": "随机壁纸 API · 一行 URL 换一张图",
+    "category": "web",
+    "platforms": [
+      "web"
+    ],
+    "status": "released",
+    "order": 30,
+    "version": "0.9.4",
+    "releaseDate": "2026-04-06",
+    "accent": "#34D399",
+    "summary": "把壁纸接口包成一次 302 重定向，带 referer / origin 白名单，防止图片被盗链。",
+    "description": "自己博客和几个小站都要用随机背景图，每次都写一遍抓取逻辑太蠢了。\n\n于是有了这个：一个 Python 服务，请求进来直接 302 到当天的 Bing 壁纸，同时校验 referer 与 origin 白名单，非白名单站点拿不到图。\n\nuv 管理依赖，Docker Compose 一键起，镜像只有 40MB。",
+    "highlights": [
+      {
+        "icon": "globe",
+        "title": "302 直跳",
+        "desc": "不中转流量，服务端只做校验与重定向，带宽成本为零。"
+      },
+      {
+        "icon": "code",
+        "title": "防盗链",
+        "desc": "referer / origin 白名单可配，非法来源直接 403。"
+      },
+      {
+        "icon": "desktop",
+        "title": "容器化部署",
+        "desc": "Docker Compose 一行起服务，uv 管依赖，冷启动 0.3 秒。"
+      }
+    ],
+    "tags": [
+      "Python",
+      "FastAPI",
+      "Docker",
+      "uv"
+    ],
+    "media": {
+      "cover": "assets/images/products/img-proxy/cover.svg",
+      "poster": "assets/images/products/img-proxy/poster.svg",
+      "gallery": [
+        "assets/images/products/img-proxy/shot-01.svg",
+        "assets/images/products/img-proxy/shot-02.svg",
+        "assets/images/products/img-proxy/shot-03.svg"
+      ]
+    },
+    "links": [
+      {
+        "type": "github",
+        "label": "源码",
+        "href": "https://github.com/ixinglan",
+        "primary": true
+      },
+      {
+        "type": "website",
+        "label": "在线演示",
+        "href": ""
+      }
+    ],
+    "metrics": [
+      {
+        "label": "日均请求",
+        "value": "3.2k"
+      }
+    ],
+    "mockup": {
+      "kind": "terminal",
+      "title": "Background Image Proxy",
+      "subtitle": "302 直跳 + 防盗链白名单"
+    }
+  },
+  {
+    "id": "focus-deck",
+    "name": "FocusDeck",
+    "tagline": "macOS 菜单栏专注计时器",
+    "category": "macos",
+    "platforms": [
+      "macos"
+    ],
+    "status": "wip",
+    "order": 40,
+    "version": "0.3.0",
+    "releaseDate": "2026-08-12",
+    "accent": "#A78BFA",
+    "summary": "常驻菜单栏的番茄钟，不占 Dock、不弹通知，专注时屏幕上只留一个数字。",
+    "description": "示例占位产品：用来演示 macOS 分类的展示效果，请替换成你自己的产品。\n\n计划中的能力：菜单栏倒计时、SwiftUI 可视化统计、与系统专注模式联动。",
+    "highlights": [
+      {
+        "icon": "desktop",
+        "title": "常驻菜单栏",
+        "desc": "不占 Dock 栏位，点一下就展开控制面板。"
+      },
+      {
+        "icon": "sparkles",
+        "title": "零打扰",
+        "desc": "专注期间不弹系统通知，只做轻微声音提示。"
+      }
+    ],
+    "tags": [
+      "SwiftUI",
+      "macOS",
+      "MenuBarExtra"
+    ],
+    "media": {
+      "cover": "assets/images/products/focus-deck/cover.svg",
+      "poster": "assets/images/products/focus-deck/poster.svg",
+      "gallery": [
+        "assets/images/products/focus-deck/shot-01.svg",
+        "assets/images/products/focus-deck/shot-02.svg",
+        "assets/images/products/focus-deck/shot-03.svg"
+      ]
+    },
+    "links": [
+      {
+        "type": "github",
+        "label": "源码",
+        "href": "https://github.com/ixinglan"
+      }
+    ],
+    "metrics": [],
+    "mockup": {
+      "kind": "timer",
+      "title": "FocusDeck",
+      "subtitle": "常驻菜单栏的专注计时"
+    }
+  },
+  {
+    "id": "forge-kit",
+    "name": "ForgeKit",
+    "tagline": "Java 后端脚手架 · 把重复的部分一次写完",
+    "category": "java",
+    "platforms": [
+      "java"
+    ],
+    "status": "wip",
+    "order": 50,
+    "version": "0.4.0",
+    "releaseDate": "2026-08-28",
+    "accent": "#F89820",
+    "summary": "示例占位产品：用来演示 Java 后端分类的展示效果，请替换成你自己的项目。",
+    "description": "示例占位产品：用来演示 Java 后端分类的展示效果，请替换成你自己的项目。\n\n计划中的能力：统一返回体与全局异常处理、接口鉴权、日志链路追踪、Docker Compose 一键部署。",
+    "highlights": [
+      {
+        "icon": "java",
+        "title": "开箱即用",
+        "desc": "统一返回体、参数校验、全局异常处理，新项目不用再抄一遍。"
+      },
+      {
+        "icon": "code",
+        "title": "按需裁剪",
+        "desc": "starter 模块化，不引入的功能不会进最终产物。"
+      }
+    ],
+    "tags": [
+      "Java 17",
+      "Spring Boot",
+      "MyBatis Plus",
+      "Docker"
+    ],
+    "media": {
+      "cover": "assets/images/products/forge-kit/cover.svg",
+      "poster": "assets/images/products/forge-kit/poster.svg",
+      "gallery": [
+        "assets/images/products/forge-kit/shot-01.svg",
+        "assets/images/products/forge-kit/shot-02.svg",
+        "assets/images/products/forge-kit/shot-03.svg"
+      ]
+    },
+    "links": [
+      {
+        "type": "github",
+        "label": "源码",
+        "href": "https://github.com/ixinglan"
+      }
+    ],
+    "metrics": [],
+    "mockup": {
+      "kind": "chart",
+      "title": "ForgeKit",
+      "subtitle": "统一返回体 · 链路追踪 · 一键部署"
+    }
+  }
+]

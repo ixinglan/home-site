@@ -1,0 +1,36 @@
+[
+  {
+    "id": "all",
+    "label": "全部",
+    "icon": "grid",
+    "order": 0
+  },
+  {
+    "id": "macos",
+    "label": "macOS 应用",
+    "icon": "desktop",
+    "order": 1,
+    "accent": "#A78BFA"
+  },
+  {
+    "id": "ios",
+    "label": "iOS App",
+    "icon": "phone",
+    "order": 2,
+    "accent": "#0EA5E9"
+  },
+  {
+    "id": "web",
+    "label": "Web 网站",
+    "icon": "globe",
+    "order": 3,
+    "accent": "#38BDF8"
+  },
+  {
+    "id": "java",
+    "label": "Java 后端",
+    "icon": "java",
+    "order": 4,
+    "accent": "#F89820"
+  }
+]

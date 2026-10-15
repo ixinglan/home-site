@@ -1,0 +1,114 @@
+/* ============================================================
+   布局：容器 / 区块 / 栅格 / 区头
+   ============================================================ */
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--s-5);
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding-inline: var(--s-4);
+  }
+}
+
+.section {
+  position: relative;
+  padding-block: var(--s-9);
+}
+
+.section--hero {
+  padding-block: 0;
+}
+
+.section + .section {
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding-block: var(--s-7);
+  }
+}
+
+/* ---------- 区块标题 ---------- */
+.section-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  margin-bottom: var(--s-7);
+  max-width: 680px;
+}
+
+.section-head__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.section-head__eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--accent-line);
+}
+
+.section-head__title {
+  font-size: var(--fs-2xl);
+}
+
+.section-head__sub {
+  color: var(--text-2);
+  font-size: var(--fs-md);
+}
+
+/* ---------- 通用栅格 ---------- */
+.grid {
+  display: grid;
+  gap: var(--s-5);
+}
+
+.grid--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 1024px) {
+  .grid--3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .grid--3,
+  .grid--2 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.spacer {
+  flex: 1;
+}

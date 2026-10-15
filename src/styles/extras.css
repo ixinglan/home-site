@@ -1,0 +1,107 @@
+/* ============================================================
+   个性化层：颗粒 / 进度条 / 逐字标题 / 卡片 3D 倾斜
+   （光标不接管：常态跟随系统，悬浮走原生小手 cursor: pointer）
+   ============================================================ */
+
+/* ---------- 颗粒质感 ---------- */
+.grain {
+  position: fixed;
+  inset: -120px;
+  z-index: 1200;
+  pointer-events: none;
+  opacity: 0.05;
+  background-size: 220px 220px;
+}
+
+/* ---------- 滚动进度条 ---------- */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: calc(var(--z-header) + 2);
+  width: 100%;
+  height: 2px;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  pointer-events: none;
+}
+
+/* ---------- Hero 逐字揭示 ---------- */
+.char {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.char__inner {
+  display: inline-block;
+  transform: translateY(120%);
+  animation: charRise 0.7s var(--ease) both;
+  animation-delay: var(--char-delay, 0ms);
+}
+
+.char--accent .char__inner {
+  background: linear-gradient(100deg, var(--accent) 10%, var(--accent-2) 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes charRise {
+  to {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .char__inner {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* ---------- 卡片 3D 倾斜（覆盖 components.css 的 transform） ---------- */
+.card {
+  transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))
+    translateY(var(--lift, 0px));
+  will-change: transform;
+}
+
+.card:hover,
+.card:focus-visible {
+  transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-6px);
+}
+
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .card {
+    transform: none;
+  }
+  .card:hover,
+  .card:focus-visible {
+    transform: translateY(-4px);
+  }
+}
+
+/* ---------- 精选卡片：双列宽卡 ---------- */
+.card--featured {
+  grid-column: span 2;
+}
+
+@media (max-width: 680px) {
+  .card--featured {
+    grid-column: auto;
+  }
+}
+
+/* ---------- View Transitions 时长微调 ---------- */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.28s;
+}
+
+::view-transition-group(*),
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
+}

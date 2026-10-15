@@ -1,0 +1,16 @@
+{
+  "name": "my-products",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "个人独立产品展示站（纯静态，配置驱动）",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173 --strictPort",
+    "gen:placeholders": "node scripts/gen-placeholders.mjs"
+  },
+  "devDependencies": {
+    "vite": "^7.1.5"
+  }
+}

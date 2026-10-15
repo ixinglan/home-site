@@ -1,0 +1,37 @@
+{
+  "primary": [
+    {
+      "label": "产品",
+      "href": "#products",
+      "icon": "grid"
+    },
+    {
+      "label": "关于",
+      "href": "#about",
+      "icon": "code"
+    }
+  ],
+  "secondary": [
+    {
+      "label": "GitHub",
+      "href": "https://github.com/ixinglan",
+      "icon": "github",
+      "external": true
+    }
+  ],
+  "mobileQuick": [],
+  "external": [
+    {
+      "label": "博客",
+      "href": "https://blog.zhaojq.top/",
+      "icon": "website",
+      "external": true
+    },
+    {
+      "label": "面试题",
+      "href": "https://blog.zhaojq.top/interview",
+      "icon": "code",
+      "external": true
+    }
+  ]
+}

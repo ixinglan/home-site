@@ -1,0 +1,253 @@
+/* ============================================================
+   首屏：双栏（文案 + 卡通角色）+ 光斑背景
+   ============================================================ */
+
+.hero {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: calc(100svh - var(--header-h));
+  padding-block: var(--s-8) var(--s-7);
+  overflow: hidden;
+}
+
+.hero__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: var(--s-7);
+  align-items: center;
+  width: 100%;
+}
+
+.hero__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s-5);
+  text-align: left; /* 覆盖旧版 .hero 的居中，双栏下文案应左对齐 */
+}
+
+.hero__art {
+  position: relative;
+  z-index: 2;
+}
+
+/* ---------- 背景光斑 ---------- */
+.hero__blobs {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero__blob {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.hero__blob--a {
+  top: -18%;
+  right: -10%;
+  width: min(660px, 62vw);
+  aspect-ratio: 1;
+  background: radial-gradient(
+    circle at 50% 50%,
+    color-mix(in srgb, var(--accent) 28%, transparent),
+    transparent 68%
+  );
+}
+
+.hero__blob--b {
+  bottom: -24%;
+  left: -12%;
+  width: min(560px, 54vw);
+  aspect-ratio: 1;
+  background: radial-gradient(
+    circle at 50% 50%,
+    color-mix(in srgb, var(--accent-2) 26%, transparent),
+    transparent 70%
+  );
+}
+
+/* ---------- 卡通角色 ---------- */
+.mascot {
+  position: relative;
+  filter: drop-shadow(0 26px 40px rgba(10, 14, 26, 0.18));
+}
+
+.mascot__svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.mascot__eyes {
+  transition: transform 0.09s var(--ease);
+}
+
+.mascot.is-blink .mascot__eyes {
+  transform: scaleY(0.1);
+  transform-origin: 174px 176px;
+}
+
+.mascot__arm {
+  transform-origin: 218px 272px;
+}
+
+.mascot.is-wave .mascot__arm {
+  animation: mascotWave 0.9s var(--ease) infinite;
+}
+
+@keyframes mascotWave {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  30% {
+    transform: rotate(-28deg);
+  }
+  60% {
+    transform: rotate(-12deg);
+  }
+}
+
+.floaty {
+  animation: floaty 4.6s var(--ease) infinite alternate;
+}
+
+.floaty--b {
+  animation-duration: 5.4s;
+  animation-delay: -1.2s;
+}
+
+.floaty--c {
+  animation-duration: 6.2s;
+  animation-delay: -2.4s;
+}
+
+@keyframes floaty {
+  from {
+    transform: translateY(-9px);
+  }
+  to {
+    transform: translateY(11px);
+  }
+}
+
+/* ---------- 桌上的猫 ---------- */
+.cat__eyes {
+  transition: transform 0.09s var(--ease);
+}
+
+.mascot.is-blink .cat__eyes {
+  transform: scaleY(0.1);
+  transform-origin: 286px 317px;
+}
+
+.cat__tail {
+  transform-box: view-box;
+  transform-origin: 388px 340px;
+  animation: catTail 3.6s ease-in-out infinite alternate;
+}
+
+@keyframes catTail {
+  from {
+    transform: rotate(-9deg);
+  }
+  to {
+    transform: rotate(10deg);
+  }
+}
+
+.cat__breathe {
+  transform-box: view-box;
+  transform-origin: 336px 351px;
+  animation: catBreath 3.4s ease-in-out infinite alternate;
+}
+
+@keyframes catBreath {
+  from {
+    transform: scaleY(1);
+  }
+  to {
+    transform: scaleY(1.07);
+  }
+}
+
+/* 鼠标靠近：尾巴摇得欢 */
+.mascot.is-cat-happy .cat__tail {
+  animation-duration: 0.55s;
+}
+
+/* 戳一下：整只猫弹起来 */
+.mascot.is-cat-poke .cat {
+  animation: catPoke 0.5s var(--ease);
+}
+
+@keyframes catPoke {
+  0% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-9px);
+  }
+  60% {
+    transform: translateY(2px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.steam path {
+  animation: steam 2.8s ease-in-out infinite;
+}
+.steam path:nth-child(2) {
+  animation-delay: 0.9s;
+}
+
+@keyframes steam {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  45% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+}
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 980px) {
+  .hero__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-5);
+    text-align: center;
+  }
+  .hero__copy {
+    align-items: center;
+  }
+  .hero__art {
+    order: 2;
+    width: min(420px, 82%);
+    margin-inline: auto;
+  }
+  .hero {
+    min-height: auto;
+    padding-block: var(--s-8) var(--s-6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floaty,
+  .steam path,
+  .mascot.is-wave .mascot__arm {
+    animation: none;
+  }
+}

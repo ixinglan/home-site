@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" width="1280" height="800">
+  <defs>
+    <linearGradient id="cbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F89820" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#F89820" stop-opacity=".02"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="60%">
+      <stop offset="0" stop-color="#F89820" stop-opacity=".30"/>
+      <stop offset="1" stop-color="#F89820" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <circle cx="1.5" cy="1.5" r="1.4" fill="#ffffff" fill-opacity=".10"/>
+    </pattern>
+  </defs>
+  <rect width="1280" height="800" fill="#0A0C10"/>
+  <rect width="1280" height="800" fill="url(#cbg)"/>
+  <rect width="1280" height="800" fill="url(#grid)"/>
+  <rect width="1280" height="800" fill="url(#glow)"/>
+  <g transform="translate(130.7 72.0) scale(0.8631578947368421)" filter="none">
+    <g opacity="0.35" transform="translate(0 14)"><rect x="6" y="6" width="1180" height="760" rx="70.8" fill="#000"/></g>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 760" width="1180" height="760">
+  <defs>
+    <clipPath id="scr"><rect x="0" y="58" width="1180" height="702" rx="0"/></clipPath>
+    <linearGradient id="body" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2A3040"/><stop offset="1" stop-color="#12151D"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="1180" height="760" rx="16" fill="url(#body)"/>
+  <rect x="0" y="58" width="1180" height="702" rx="0" fill="#0E1116"/>
+  <g clip-path="url(#scr)"><rect x="0" y="0" width="1180" height="72" rx="0" fill="#F89820" fill-opacity=".16"/><text x="28" y="46" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif" font-size="20" font-weight="700" fill="#fff" fill-opacity="1" text-anchor="start">Pulse</text><text x="1152" y="46" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="14" font-weight="700" fill="#F89820" fill-opacity="1" text-anchor="end">72 bpm</text><polyline points="28.0,341.9 79.1,310.8 130.2,384.7 181.3,398.0 232.4,349.5 283.5,389.6 334.5,411.9 385.6,334.9 436.7,328.3 487.8,379.9 538.9,287.7 590.0,327.2 641.1,405.0 692.2,403.2 743.3,348.2 794.4,384.7 845.5,393.2 896.5,317.0 947.6,328.4 998.7,386.4 1049.8,350.4 1100.9,346.2 1152.0,418.7" fill="none" stroke="#F89820" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><polyline points="28,519.48 28.0,341.9 79.1,310.8 130.2,384.7 181.3,398.0 232.4,349.5 283.5,389.6 334.5,411.9 385.6,334.9 436.7,328.3 487.8,379.9 538.9,287.7 590.0,327.2 641.1,405.0 692.2,403.2 743.3,348.2 794.4,384.7 845.5,393.2 896.5,317.0 947.6,328.4 998.7,386.4 1049.8,350.4 1100.9,346.2 1152.0,418.7 1152,519.48" fill="#F89820" fill-opacity=".12" stroke="none"/><rect x="28" y="570" width="366.6666666666667" height="84" rx="14" fill="#ffffff" fill-opacity=".06"/><text x="44" y="598" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif" font-size="11" font-weight="500" fill="#fff" fill-opacity="0.45" text-anchor="start">静息</text><text x="44" y="632" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="24" font-weight="700" fill="#fff" fill-opacity="1" text-anchor="start">62</text><rect x="406.6666666666667" y="570" width="366.6666666666667" height="84" rx="14" fill="#ffffff" fill-opacity=".06"/><text x="422.6666666666667" y="598" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif" font-size="11" font-weight="500" fill="#fff" fill-opacity="0.45" text-anchor="start">最高</text><text x="422.6666666666667" y="632" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="24" font-weight="700" fill="#fff" fill-opacity="1" text-anchor="start">148</text><rect x="785.3333333333334" y="570" width="366.6666666666667" height="84" rx="14" fill="#ffffff" fill-opacity=".06"/><text x="801.3333333333334" y="598" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif" font-size="11" font-weight="500" fill="#fff" fill-opacity="0.45" text-anchor="start">时长</text><text x="801.3333333333334" y="632" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="24" font-weight="700" fill="#fff" fill-opacity="1" text-anchor="start">38m</text><rect x="28" y="668" width="1124" height="12" rx="6" fill="#ffffff" fill-opacity=".08"/></g>
+  <rect x="0" y="0" width="1180" height="58" rx="0" fill="#ffffff" fill-opacity=".07"/><circle cx="30" cy="29" r="6.5" fill="#FF5F57" /><circle cx="52" cy="29" r="6.5" fill="#FEBC2E" /><circle cx="74" cy="29" r="6.5" fill="#28C840" /><rect x="259.6" y="15" width="660.8000000000001" height="28" rx="14" fill="#ffffff" fill-opacity=".08"/><text x="295" y="34" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="500" fill="#fff" fill-opacity="0.45" text-anchor="start">https://</text>
+  <rect x="0.5" y="0.5" width="1179" height="759" rx="16" fill="none" stroke="#ffffff" stroke-opacity=".14"/>
+</svg>
+  </g>
+  
+</svg>

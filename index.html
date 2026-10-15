@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <title>我的产品</title>
+    <meta name="description" content="独立开发者的产品作品集：Web 网站、iOS App、macOS 桌面应用、Java 后端服务。" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+
+    <!-- 主题预置：在 CSS 加载前先决定明暗，避免首屏闪白/闪黑 -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('mp-theme') || 'system';
+          var theme =
+            saved === 'system'
+              ? window.matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light'
+              : saved;
+          document.documentElement.dataset.theme = theme;
+        } catch (e) {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#products">跳到产品列表</a>
+
+    <!-- 氛围背景层（canvas 由 background.js 注入） -->
+    <div class="bg-layer" id="bg-layer" aria-hidden="true"></div>
+
+    <header class="site-header" id="site-header"></header>
+
+    <main id="app">
+      <section class="section section--hero" id="hero"></section>
+      <section class="section section--products" id="products"></section>
+      <section class="section section--sites" id="sites"></section>
+      <section class="section section--about" id="about"></section>
+    </main>
+
+    <footer class="site-footer" id="site-footer"></footer>
+
+    <!-- 产品详情全屏页挂载点 -->
+    <div id="page-root"></div>
+
+    <noscript>
+      <div class="noscript-tip">
+        本站内容由配置文件驱动渲染，需要开启 JavaScript 才能浏览。
+      </div>
+    </noscript>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3D6BFF"/>
+      <stop offset="1" stop-color="#7B5CFF"/>
+    </linearGradient>
+    <pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.6" fill="#ffffff" fill-opacity="0.16"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  <text x="56" y="150" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+    font-size="30" letter-spacing="6" fill="#ffffff" fill-opacity="0.65">PRODUCTS</text>
+  <text x="56" y="352" font-family="-apple-system, 'PingFang SC', sans-serif"
+    font-size="132" font-weight="700" fill="#ffffff" fill-opacity="0.97">星辰逐梦</text>
+  <text x="58" y="430" font-family="-apple-system, 'PingFang SC', sans-serif"
+    font-size="34" fill="#ffffff" fill-opacity="0.78">用 AI 做点有用的东西</text>
+  <text x="58" y="560" font-family="ui-monospace, SFMono-Regular, Menlo, monospace"
+    font-size="26" fill="#ffffff" fill-opacity="0.6">Web · iOS · macOS · Java</text>
+</svg>

@@ -1,0 +1,145 @@
+{
+  "meta": {
+    "title": "AI Coding 作品集",
+    "description": "闲来无事，做了几个小工具，顺便写了个网站。这里放着所有做过和正在做的产品。",
+    "keywords": [
+      "独立开发",
+      "作品集",
+      "AI 编程",
+      "iOS",
+      "macOS",
+      "Java",
+      "Web",
+      "SwiftUI",
+      "Spring AI",
+      "Vibe Coding",
+      "AI Coding",
+      "AI 编程"
+    ],
+    "author": "星辰逐梦",
+    "url": "https://zhaojq.top",
+    "ogImage": "./assets/og/cover.png",
+    "favicon": "./favicon.svg",
+    "lang": "zh-CN"
+  },
+  "brand": {
+    "name": "星辰逐梦",
+    "shortName": "星辰",
+    "logo": "",
+    "tagline": "独立开发",
+    "slogan": "一个人，把想法做成真东西"
+  },
+  "hero": {
+    "eyebrow": "Independent Developer",
+    "headline": "我把想法做成能用的东西",
+    "highlight": "能用的东西",
+    "subheadline": "用 AI 当搭子，从 Java 后端、Web 到 iOS、macOS，想到什么就把它做成能用的东西。",
+    "primaryCta": {
+      "label": "看看作品",
+      "href": "#products"
+    },
+    "secondaryCta": {
+      "label": "关于我",
+      "href": "#about"
+    },
+    "background": {
+      "type": "particles",
+      "enableParallax": true
+    }
+  },
+  "theme": {
+    "default": "system",
+    "allowToggle": true,
+    "accent": "#3D6BFF"
+  },
+  "features": {
+    "enableDrawer": true,
+    "showGallery": true
+  },
+  "sections": {
+    "products": {
+      "eyebrow": "Products",
+      "title": "作品集",
+      "sub": "按平台筛选。点开任意一张卡片，可以看到它为什么做成这样。"
+    },
+    "about": {
+      "eyebrow": "About",
+      "title": "关于我"
+    },
+    "sites": {
+      "eyebrow": "Elsewhere",
+      "title": "我也在写",
+      "sub": "产品和代码之外，这两个地方我也在更新内容。"
+    }
+  },
+  "about": {
+    "title": "关于我",
+    "paragraphs": [
+      "我利用 AI 写代码，做的大多是「自己需要、自己喜欢」的小工具和小应用——先是解决自己手上的麻烦，做完觉得顺手，就整理一下分享出来，说不定刚好也有人用得上。",
+      "方向不设限：Java 后端、Web 小站、iOS 与 macOS 原生应用都做。AI 负责把想法快速变成能跑的原型，我负责判断它到底好不好用、值不值得继续打磨。",
+      "所有东西都倾向轻量、可控、能自己跑起来：能不上框架就不上，能离线就离线，能自托管就自托管。如果你对某个产品有想法，或者想聊聊 AI 写代码，随时联系我。"
+    ],
+    "links": [
+      {
+        "label": "GitHub",
+        "handle": "@ixinglan",
+        "icon": "github",
+        "href": "https://github.com/ixinglan",
+        "external": true
+      },
+      {
+        "label": "邮箱",
+        "handle": "ixiaoqiang0011@gmail.com",
+        "icon": "mail",
+        "href": "mailto:ixiaoqiang0011@gmail.com"
+      },
+      {
+        "label": "Bilibili",
+        "handle": "@星辰逐梦",
+        "icon": "bilibili",
+        "href": "https://space.bilibili.com/505599273",
+        "external": true
+      }
+    ]
+  },
+  "footer": {
+    "copyright": "© {year} 星辰逐梦 · 用 AI 做点有用的东西",
+    "icp": "",
+    "links": [
+      {
+        "label": "博客",
+        "href": "https://blog.zhaojq.top/"
+      },
+      {
+        "label": "面试题",
+        "href": "https://blog.zhaojq.top/interview"
+      },
+      {
+        "label": "GitHub",
+        "href": "https://github.com/ixinglan"
+      }
+    ]
+  },
+  "sites": [
+    {
+      "id": "blog",
+      "name": "技术博客",
+      "url": "https://blog.zhaojq.top/",
+      "desc": "AI、资讯、后端、技术、随笔、认知等的系列技术教程和博客，想到哪写到哪。",
+      "icon": "website",
+      "accent": "#38BDF8",
+      "label": "blog.zhaojq.top",
+      "highlight": "持续更新。。。"
+    },
+    {
+      "id": "interview",
+      "name": "面试题站",
+      "url": "https://blog.zhaojq.top/interview",
+      "desc": "按专题整理的面试题库，配图解和部分可运行代码。",
+      "icon": "code",
+      "accent": "#A78BFA",
+      "label": "/interview",
+      "highlight": "持续更新。。。"
+    }
+  ]
+}
