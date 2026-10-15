@@ -10,6 +10,12 @@
 ## 快速开始
 
 ```bash
+./local.sh         # 本地开发（= npm install + npm run dev）
+```
+
+或者手动执行：
+
+```bash
 npm install
 npm run dev        # 开发预览 http://localhost:5173
 npm run build      # 产物输出到 dist/
@@ -32,15 +38,19 @@ src/
   core/               dom / config / schema / theme / router / motion / icons
   components/         每个区块一个文件，按需增删
 scripts/
-  gen-mockups.mjs        按平台生成设备示例图（iPhone / Android / 浏览器 / macOS 窗口）
+  gen-mockups.mjs        按平台生成设备示例图（iPhone / 浏览器 / macOS 窗口）
   gen-placeholders.mjs   旧版渐变占位图（已被 mockups 取代，保留备用）
-  verify.mjs             端到端冒烟验证（31 项检查 + 截图）
+  compose-shots.py       用真实截图合成产品图（竖屏 iOS 截图自动并排，避免被 3:2 裁掉）
+  crossterminal-cards.mjs  CrossTerminal 无截图，用仓库真实图标 + README 事实生成信息卡
+  verify.mjs             端到端冒烟验证（90 项检查 + 截图）
+local.sh              本地开发启动（npm install + npm run dev）
+publish.sh            打包 + rsync 发布到服务器 nginx 目录
 ```
 
 ## 产品示例图（mockup）
 
 每个产品自动生成 `cover / poster / shot-01..03` 五张设备示例图，外壳按 `platforms[0]` 自动选择
-（ios→iPhone、android→安卓机、web→浏览器窗口、macos→Mac 窗口），界面内容按 `mockup.kind` 渲染：
+（ios→iPhone、web→浏览器窗口、macos→Mac 窗口、java→终端窗口），界面内容按 `mockup.kind` 渲染：
 
 | kind | 界面 | 适合 |
 |---|---|---|
@@ -125,14 +135,15 @@ scripts/
 ## 端到端验证
 
 ```bash
-npm install --no-save playwright-core   # 一次性，用本机缓存的可执行浏览器
-npm run build && npm run preview        # 或手动起一个静态服务
-node scripts/verify.mjs                 # 56 项检查 + 截图到 verify-shots/
+npm run build && npm run preview    # 构建并起一个静态服务（localhost:4173）
+node scripts/verify.mjs             # 90 项检查 + 截图到 verify-shots/
 ```
 
+`playwright-core` 已在 devDependencies 里（`npm install` 会带上；它只用本机已缓存的浏览器，不额外下载）。
+
 覆盖：各区块渲染、逐字标题、光标策略（常态系统默认 / 悬浮原生小手）、精选双列卡、筛选、
-全屏详情（共享元素名切换）、
-截图画廊、键盘 ←/→ 切换、ESC 关闭、hash 直链、暗色主题、主题持久化、移动端、控制台无错误。
+全屏详情（共享元素名切换）、画廊居中、切换产品时描述不残留、点击图片放大预览（Lightbox）、
+键盘 ←/→ 切换、ESC 关闭、hash 直链、暗色主题、主题持久化、移动端、控制台无错误。
 
 ## 交互亮点
 
@@ -151,13 +162,38 @@ node scripts/verify.mjs                 # 56 项检查 + 截图到 verify-shots/
 
 ## 部署（nginx）
 
-`npm run build` 后把 `dist/` 内容上传到服务器目录即可。参考配置（无 SPA rewrite 需求）：
+一条命令搞定：
+
+```bash
+./publish.sh      # = npm run build + rsync -av --delete dist/ root@qiang-tc2028:/usr/local/nginx/site-homepage/
+```
+
+脚本里的变量（改脚本顶部即可）：
+
+| 变量 | 默认值 |
+|---|---|
+| 本地产物 | `dist/` |
+| 服务器 | `root@qiang-tc2028` |
+| nginx 目录 | `/usr/local/nginx/site-homepage` |
+
+> ⚠️ rsync 带 `--delete`：服务器上存在、本地没有的文件会被删除。
+> 第一次对线上目录执行前，建议先手动跑一次
+> `rsync -av --delete --dry-run dist/ root@qiang-tc2028:/usr/local/nginx/site-homepage/` 看看差异。
+
+也可以手动两步：
+
+```bash
+npm run build
+rsync -av --delete dist/ root@qiang-tc2028:/usr/local/nginx/site-homepage/
+```
+
+nginx 参考配置（无 SPA rewrite 需求）：
 
 ```nginx
 server {
     listen 443 ssl;
     server_name products.example.com;        # 换成你的子域名
-    root /var/www/my-products;
+    root /usr/local/nginx/site-homepage;
     index index.html;
 
     location / { try_files $uri $uri/ =404; }

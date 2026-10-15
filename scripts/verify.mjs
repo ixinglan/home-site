@@ -1,7 +1,8 @@
 /**
  * 端到端冒烟验证（本地跑，不进构建产物）
- * 前置：npm run build && 一个静态服务（默认 http://127.0.0.1:8899/）
- * 运行：npm i --no-save playwright-core && node scripts/verify.mjs
+ * 前置：npm run build && npm run preview（默认 http://127.0.0.1:4173/）
+ * 运行：node scripts/verify.mjs           （playwright-core 已在 devDependencies）
+ *       VERIFY_URL=http://localhost:5173 node scripts/verify.mjs   也能验 dev 服务
  */
 import { chromium } from 'playwright-core';
 import { homedir } from 'node:os';
@@ -12,7 +13,7 @@ const EXECUTABLE = resolve(
   homedir(),
   'Library/Caches/ms-playwright/chromium-1228/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing'
 );
-const BASE_URL = process.env.VERIFY_URL || 'http://127.0.0.1:8899/';
+const BASE_URL = process.env.VERIFY_URL || 'http://127.0.0.1:4173/';
 const OUT_DIR = resolve(process.cwd(), 'verify-shots');
 
 /* ---------- 画廊 / Lightbox 用例用到的数据 ---------- */

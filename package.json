@@ -11,6 +11,7 @@
     "gen:placeholders": "node scripts/gen-placeholders.mjs"
   },
   "devDependencies": {
+    "playwright-core": "^1.64.1",
     "vite": "^7.1.5"
   }
 }
