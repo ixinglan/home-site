@@ -6,6 +6,7 @@
 import { chromium } from 'playwright-core';
 import { homedir } from 'node:os';
 import { resolve } from 'node:path';
+import { readFile } from 'node:fs/promises';
 
 const EXECUTABLE = resolve(
   homedir(),
@@ -13,6 +14,35 @@ const EXECUTABLE = resolve(
 );
 const BASE_URL = process.env.VERIFY_URL || 'http://127.0.0.1:8899/';
 const OUT_DIR = resolve(process.cwd(), 'verify-shots');
+
+/* ---------- 画廊 / Lightbox 用例用到的数据 ---------- */
+const rawProducts = JSON.parse(await readFile(resolve(process.cwd(), 'public/data/products.json'), 'utf8'));
+const PRODUCTS = Array.isArray(rawProducts) ? rawProducts : rawProducts.products || [];
+const START_ID = 'purecadence';
+const START_GALLERY = (PRODUCTS.find((p) => p.id === START_ID)?.media?.gallery || []).map(
+  (p) => new URL(p, BASE_URL).href
+);
+
+/** 在页面里量：当前居中项的中心 vs 容器可视中心的偏差 */
+const FLOW_METRICS = () => {
+  const f = document.querySelector('.flow');
+  if (!f) return null;
+  const fb = f.getBoundingClientRect();
+  const items = Array.from(f.querySelectorAll('.flow__item'));
+  const mid = fb.left + f.clientWidth / 2;
+  const first = items[0].getBoundingClientRect();
+  const cur = items[Number(f.dataset.idx || 0)].getBoundingClientRect();
+  return {
+    // 首图中心 − 容器可视中心
+    firstDelta: +(first.left + first.width / 2 - mid).toFixed(2),
+    firstCenter: items[0].classList.contains('is-center'),
+    firstOpacity: getComputedStyle(items[0]).opacity,
+    // 当前居中项（切产品后会被重置为 0）
+    delta: +(cur.left + cur.width / 2 - mid).toFixed(2),
+    centers: f.querySelectorAll('.flow__item.is-center').length,
+    idx: f.dataset.idx,
+  };
+};
 
 const results = [];
 const check = (name, ok, detail = '') => {
@@ -23,8 +53,12 @@ const check = (name, ok, detail = '') => {
 const browser = await chromium.launch({ executablePath: EXECUTABLE, headless: true });
 const errors = [];
 
-async function newPage(colorScheme = 'light', viewport = { width: 1440, height: 900 }) {
-  const ctx = await browser.newContext({ viewport, colorScheme });
+async function newPage(
+  colorScheme = 'light',
+  viewport = { width: 1440, height: 900 },
+  extra = {}
+) {
+  const ctx = await browser.newContext({ viewport, colorScheme, ...extra });
   const page = await ctx.newPage();
   page.on('console', (msg) => {
     if (msg.type() === 'error') errors.push(msg.text());
@@ -211,6 +245,225 @@ async function newPage(colorScheme = 'light', viewport = { width: 1440, height: 
   await page.waitForTimeout(900);
   check('移动端详情可用', (await page.locator('.ppage.is-open').count()) === 1);
   await page.screenshot({ path: `${OUT_DIR}/06-mobile-detail.png` });
+  await ctx.close();
+}
+
+/* ---------- 画廊居中 + 切产品不堆积 tagline（1440×900） ---------- */
+{
+  const { ctx, page } = await newPage('light');
+  await page.goto(`${BASE_URL}#/product/${START_ID}`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(1000);
+
+  const m0 = await page.evaluate(FLOW_METRICS);
+  check(
+    '① 首图水平居中（偏差 ≤2px）',
+    Math.abs(m0.firstDelta) <= 2,
+    `Δ=${m0.firstDelta}px（clientWidth=${await page.locator('.flow').evaluate((el) => el.clientWidth)}）`
+  );
+  check(
+    '② 首图命中 is-center 且完全不透明',
+    m0.firstCenter && m0.firstOpacity === '1',
+    `is-center=${m0.firstCenter} opacity=${m0.firstOpacity}`
+  );
+
+  // 连续按 → 切 3 次产品
+  const seen = [];
+  for (let i = 0; i < 3; i += 1) {
+    seen.push((await page.locator('.ppage__hero-caption .ppage__tag').innerText()).trim());
+    await page.keyboard.press('ArrowRight');
+    await page.waitForTimeout(700);
+  }
+  const cap = await page.evaluate(() => {
+    const c = document.querySelector('.ppage__hero-caption');
+    const tags = Array.from(c.querySelectorAll('.ppage__tag'));
+    return {
+      count: tags.length,
+      text: (tags[0]?.textContent || '').trim(),
+      caption: c.textContent,
+      title: document.querySelector('.ppage__title').textContent.trim(),
+    };
+  });
+  const expected = (PRODUCTS.find((p) => p.name === cap.title) || {}).tagline || '';
+  check('③ 切 3 次后 tagline 节点数 = 1', cap.count === 1, `实际 ${cap.count} 个`);
+  check('③ tagline = 当前产品文案', cap.text === expected, `${cap.text} / 期望 ${expected}`);
+  check(
+    '③ caption 不含上一个产品的 tagline',
+    seen.every((t) => !t || !cap.caption.includes(t)),
+    `历史：${seen.join(' | ')}`
+  );
+
+  // resize：1440 → 1024 → 768
+  for (const w of [1024, 768]) {
+    await page.setViewportSize({ width: w, height: 900 });
+    await page.waitForTimeout(500);
+    const r = await page.evaluate(FLOW_METRICS);
+    check(`④ resize ${w} 后仍居中（≤2px）`, Math.abs(r.delta) <= 2, `Δ=${r.delta}px`);
+    check(`④ resize ${w} 后唯一中心项`, r.centers === 1, `实际 ${r.centers} 个`);
+  }
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await ctx.close();
+}
+
+/* ---------- Lightbox：打开 / 翻图 / 双层 Esc / 焦点 / 拖动不误开 ---------- */
+{
+  const { ctx, page } = await newPage('light');
+  await page.goto(`${BASE_URL}#/product/${START_ID}`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(1000);
+
+  // ⑩ 先测拖动：按下后横移 60px 再松开，不该打开
+  const box = await page.locator('.flow__zoom').nth(0).boundingBox();
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(box.x + box.width / 2 + 60, box.y + box.height / 2);
+  await page.mouse.up();
+  await page.waitForTimeout(350);
+  check('⑩ 横向拖动 60px 不误开 Lightbox', (await page.locator('.lightbox.is-open').count()) === 0);
+
+  // ⑤ 点第 2 张放大
+  await page.locator('.flow__zoom').nth(1).click();
+  await page.waitForTimeout(400);
+  check('⑤ 点第 2 张打开 Lightbox', await page.locator('.lightbox.is-open').isVisible());
+  check(
+    '⑤ Lightbox 图片 = gallery[1]',
+    (await page.locator('.lightbox__img').getAttribute('src')) === START_GALLERY[1],
+    await page.locator('.lightbox__img').getAttribute('src')
+  );
+  check(
+    '⑤ 计数显示 2 / n',
+    (await page.locator('.lightbox__counter').innerText()).trim() === `2 / ${START_GALLERY.length}`,
+    (await page.locator('.lightbox__counter').innerText()).trim()
+  );
+  check(
+    '⑤ 焦点落在关闭按钮',
+    await page.evaluate(() => Boolean(document.activeElement?.classList.contains('lightbox__close')))
+  );
+  check(
+    '⑤ 背景被 inert 隔离',
+    await page.evaluate(() =>
+      Array.from(document.querySelectorAll('#app, #page-root')).every((n) => n.hasAttribute('inert'))
+    )
+  );
+
+  // ⑥ Lightbox 内 → 翻图，且 hash 不能变（不能被切成下一个产品）
+  const urlBefore = page.url();
+  await page.keyboard.press('ArrowRight');
+  await page.waitForTimeout(350);
+  check(
+    '⑥ Lightbox 内 → 翻到下一张',
+    (await page.locator('.lightbox__img').getAttribute('src')) === START_GALLERY[2],
+    await page.locator('.lightbox__img').getAttribute('src')
+  );
+  check('⑥ 翻图时产品 hash 完全没变', page.url() === urlBefore, page.url());
+  check(
+    '⑥ 翻图同步画廊居中位置',
+    (await page.evaluate(() => document.querySelector('.flow').dataset.idx)) === '2'
+  );
+  // 到最后一张再按一次：不循环
+  await page.keyboard.press('ArrowRight');
+  await page.waitForTimeout(300);
+  check(
+    '⑥ 末张再按 → 不循环',
+    (await page.locator('.lightbox__img').getAttribute('src')) ===
+      START_GALLERY[START_GALLERY.length - 1]
+  );
+
+  // ⑦ 第 1 次 Esc 只关 Lightbox
+  await page.keyboard.press('Escape');
+  await page.waitForTimeout(350);
+  check(
+    '⑦ 第 1 次 Esc 只关 Lightbox（详情页仍开着）',
+    (await page.locator('.lightbox.is-open').count()) === 0 &&
+      (await page.locator('.ppage.is-open').count()) === 1
+  );
+  check('⑦ 关 Lightbox 后 hash 不变', page.url() === urlBefore, page.url());
+  check(
+    '⑦ 背景 inert 已解除',
+    await page.evaluate(() =>
+      Array.from(document.querySelectorAll('#app, #page-root')).every((n) => !n.hasAttribute('inert'))
+    )
+  );
+
+  // ⑧ 焦点回到触发的那颗按钮
+  check(
+    '⑧ 关闭后焦点回到触发的 .flow__zoom',
+    await page.evaluate(() => {
+      const a = document.activeElement;
+      return Boolean(a?.classList.contains('flow__zoom')) && a.dataset.index === '1';
+    })
+  );
+
+  // ⑦ 第 2 次 Esc 才关详情页
+  await page.keyboard.press('Escape');
+  await page.waitForTimeout(900);
+  check(
+    '⑦ 第 2 次 Esc 关闭详情页回首页',
+    (await page.locator('.ppage.is-open').count()) === 0 && !page.url().includes('#/'),
+    page.url()
+  );
+  await ctx.close();
+}
+
+/* ---------- 暗色主题下的画廊 + Lightbox ---------- */
+{
+  const { ctx, page } = await newPage('dark');
+  await page.goto(`${BASE_URL}#/product/${START_ID}`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(1000);
+  const m = await page.evaluate(FLOW_METRICS);
+  check('暗色：首图仍居中（≤2px）', Math.abs(m.firstDelta) <= 2, `Δ=${m.firstDelta}px`);
+  await page.locator('.flow__zoom').nth(0).click();
+  await page.waitForTimeout(400);
+  check('暗色：Lightbox 可打开且图片已渲染', (await page.locator('.lightbox.is-open').count()) === 1 && (await page.locator('.lightbox__img').getAttribute('src')) === START_GALLERY[0]);
+  await page.screenshot({ path: `${OUT_DIR}/09-lightbox-dark.png` });
+  await ctx.close();
+}
+
+/* ---------- ⑪ reduced-motion ---------- */
+{
+  const { ctx, page } = await newPage('light', { width: 1440, height: 900 }, { reducedMotion: 'reduce' });
+  await page.goto(`${BASE_URL}#/product/${START_ID}`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(900);
+  const m = await page.evaluate(FLOW_METRICS);
+  check('⑪ reduced-motion 下画廊仍居中', Math.abs(m.firstDelta) <= 2, `Δ=${m.firstDelta}px`);
+  await page.locator('.flow__zoom').nth(0).click();
+  await page.waitForTimeout(300);
+  check('⑪ reduced-motion 下 Lightbox 可打开', (await page.locator('.lightbox.is-open').count()) === 1);
+  const dur = await page.evaluate(
+    () => getComputedStyle(document.querySelector('.lightbox__img')).transitionDuration
+  );
+  check(
+    '⑪ reduced-motion：图片过渡时长 = 0s',
+    dur.split(',').every((v) => v.trim() === '0s'),
+    dur
+  );
+  await ctx.close();
+}
+
+/* ---------- ⑨ 移动端 390×844 ---------- */
+{
+  const { ctx, page } = await newPage('light', { width: 390, height: 844 });
+  await page.goto(`${BASE_URL}#/product/${START_ID}`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(1000);
+  const m = await page.evaluate(FLOW_METRICS);
+  check('⑨ 移动端首图居中（≤2px）', Math.abs(m.firstDelta) <= 2, `Δ=${m.firstDelta}px`);
+  check('⑨ 移动端唯一中心项', m.centers === 1, `实际 ${m.centers} 个`);
+  check(
+    '⑨ 移动端两侧不做缩放/变暗',
+    await page.evaluate(() => {
+      const it = document.querySelectorAll('.flow__item')[1];
+      const cs = getComputedStyle(it);
+      return cs.transform === 'none' && cs.opacity === '1';
+    })
+  );
+  await page.locator('.flow__zoom').nth(0).click();
+  await page.waitForTimeout(400);
+  check('⑨ 移动端点图可打开放大预览', (await page.locator('.lightbox.is-open').count()) === 1);
+  const nav = await page.evaluate(() => {
+    const n = document.querySelector('.lightbox__nav');
+    const r = n.getBoundingClientRect();
+    return { w: r.width, h: r.height };
+  });
+  check('⑨ 移动端翻页按钮 ≥44×44', nav.w >= 44 && nav.h >= 44, `${nav.w}×${nav.h}`);
+  await page.screenshot({ path: `${OUT_DIR}/10-lightbox-mobile.png` });
   await ctx.close();
 }
 

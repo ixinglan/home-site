@@ -42,10 +42,50 @@ export function append(parent, children) {
   return parent;
 }
 
-/** 清空子节点 */
+/**
+ * 清空子节点
+ * 兼容 Node / NodeList / Array：传集合时逐个清空。
+ * （旧实现只处理单个 Node，传 querySelectorAll 的结果会静默空操作 → 内容重复堆积）
+ */
 export function clear(node) {
-  while (node.firstChild) node.removeChild(node.firstChild);
+  if (!node) return node;
+  const list = node instanceof Node ? [node] : Array.from(node ?? []);
+  list.forEach((n) => {
+    while (n.firstChild) n.removeChild(n.firstChild);
+  });
   return node;
+}
+
+/** 可聚焦元素选择器 */
+export const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+/**
+ * 焦点陷阱：把 Tab / Shift+Tab 锁在 container 内（模态浮层通用）
+ * 用法：container 内监听 keydown，或由外层在 keydown 里调用
+ */
+export function trapFocus(container, e) {
+  if (!container || !e || e.key !== 'Tab') return;
+  const items = Array.from(container.querySelectorAll(FOCUSABLE)).filter(
+    (el) => !el.closest('[inert]') && el.getClientRects().length > 0
+  );
+  if (!items.length) return;
+  const first = items[0];
+  const last = items[items.length - 1];
+  const active = document.activeElement;
+
+  // 焦点已跑到浮层外（或落在 body）时，先把它拉回来
+  if (!container.contains(active)) {
+    e.preventDefault();
+    (e.shiftKey ? last : first).focus();
+    return;
+  }
+  if (e.shiftKey && active === first) {
+    e.preventDefault();
+    last.focus();
+  } else if (!e.shiftKey && active === last) {
+    e.preventDefault();
+    first.focus();
+  }
 }
 
 /** 用新内容替换容器 */

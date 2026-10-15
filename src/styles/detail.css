@@ -196,15 +196,23 @@
   background: var(--border);
 }
 
-/* ---------- 截图画廊（coverflow） ---------- */
+/* ---------- 截图画廊（coverflow） ----------
+   不变量：scrollLeft = 0 时首图正好居中。
+   gutter 由「容器可视中心 − 半个卡片宽」推出来，padding 用百分比而非 100vw
+   （100vw 含滚动条宽度，会让居中基线整体偏移）。
+   ------------------------------------------- */
 .flow {
+  --flow-item-w: min(640px, 78vw);
+  --flow-gutter-min: var(--s-5);
+  --flow-gutter: max(var(--flow-gutter-min), calc(50% - var(--flow-item-w) / 2));
+
   display: flex;
   gap: var(--s-5);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding: var(--s-3) max(var(--s-5), calc((100vw - 880px) / 2)) var(--s-4);
-  scroll-padding-inline: max(var(--s-5), calc((100vw - 880px) / 2));
-  margin-inline: calc(-1 * var(--s-5));
+  padding: var(--s-3) var(--flow-gutter) var(--s-4);
+  /* snapport 必须等于整个可视区，否则 snap 的目标点会再偏一次 */
+  scroll-padding-inline: 0;
   scrollbar-width: none;
 }
 .flow::-webkit-scrollbar {
@@ -212,8 +220,7 @@
 }
 
 .flow__item {
-  flex-shrink: 0;
-  width: min(640px, 78vw);
+  flex: 0 0 var(--flow-item-w);
   margin: 0;
   scroll-snap-align: center;
   transform: scale(var(--s, 0.94));
@@ -225,16 +232,44 @@
   background: var(--surface-2);
 }
 
+/* 包一层按钮做「点击放大」：尺寸规则仍然落在 img 上 */
+.flow__zoom {
+  display: block;
+  width: 100%;
+  padding: 0;
+  line-height: 0;
+  -webkit-user-drag: none;
+}
+
+.flow__zoom:focus-visible {
+  /* 父级 overflow:hidden 会裁掉外扩的焦点圈，改成向内画 */
+  outline-offset: -4px;
+}
+
 .flow__item img {
   width: 100%;
   display: block;
   aspect-ratio: 16 / 10;
   object-fit: cover;
+  -webkit-user-drag: none;
 }
 
 .flow__item.is-center {
   --s: 1;
   --o: 1;
+}
+
+/* 窄屏：把卡片收窄、gutter 下限降到 12px，保证 gutter 永远不触底被 clamp，
+   「scrollLeft = 0 = 首图居中」依然成立；同时关掉两侧缩放/变暗（空间不够做景深） */
+@media (max-width: 680px) {
+  .flow {
+    --flow-item-w: min(640px, calc(100vw - 96px));
+    --flow-gutter-min: var(--s-3);
+  }
+  .flow__item {
+    transform: none;
+    opacity: 1;
+  }
 }
 
 .flow__hint {
@@ -449,4 +484,153 @@
 /* 详情内的次级容器，保证滚动进度从 0 重新计算 */
 .ppage.is-open ~ .scroll-progress {
   display: none;
+}
+
+/* ============================================================
+   截图放大预览（Lightbox）
+   挂在 document.body 直属，盖在详情页之上；详情页自身保持打开
+   ============================================================ */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-lightbox);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: max(var(--s-6), env(safe-area-inset-top, 0px)) var(--s-5)
+    calc(var(--s-5) + env(safe-area-inset-bottom, 0px));
+  background: rgba(5, 7, 11, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  overscroll-behavior: contain;
+  /* 关闭：140ms */
+  transition: opacity 0.14s var(--ease), visibility 0s linear 0.14s;
+}
+
+.lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  /* 打开：180ms */
+  transition: opacity 0.18s var(--ease);
+}
+
+.lightbox__stage {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.lightbox__img {
+  max-width: min(1200px, 92vw);
+  max-height: 78dvh;
+  object-fit: contain;
+  border-radius: var(--r-lg);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.8);
+  transform: scale(0.96);
+  opacity: 0;
+  transition: transform 0.18s var(--ease), opacity 0.18s var(--ease);
+}
+
+.lightbox.is-open .lightbox__img {
+  transform: none;
+  opacity: 1;
+}
+
+.lightbox__bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-4);
+  padding-top: var(--s-4);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.lightbox__counter {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+  min-width: 56px;
+  text-align: center;
+}
+
+.lightbox__nav,
+.lightbox__close {
+  display: grid;
+  place-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: var(--r-full);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease);
+}
+
+.lightbox__nav:hover:not(:disabled),
+.lightbox__close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
+}
+
+.lightbox__nav[hidden],
+.lightbox__close[hidden] {
+  display: none;
+}
+
+.lightbox__nav:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.lightbox__nav svg {
+  width: 18px;
+  height: 18px;
+}
+
+.lightbox__nav--prev svg {
+  transform: rotate(180deg);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: max(var(--s-4), env(safe-area-inset-top, 0px));
+  right: var(--s-4);
+}
+
+.lightbox__close svg {
+  width: 17px;
+  height: 17px;
+}
+
+/* 深色遮罩上焦点圈要够亮才看得见 */
+.lightbox :focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbox,
+  .lightbox.is-open,
+  .lightbox__img,
+  .lightbox.is-open .lightbox__img,
+  .lightbox__nav,
+  .lightbox__close {
+    transition-duration: 0s !important;
+  }
+  .lightbox__img {
+    transform: none;
+  }
 }
