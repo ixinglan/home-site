@@ -128,7 +128,7 @@ publish.sh            打包 + rsync 发布到服务器 nginx 目录
 - 图片来源：`scripts/compose-shots.py` 从本地各项目仓库的真实截图合成（竖屏截图自动并排）；
   CrossTerminal 无现成截图，用仓库真实 AppIcon + README 事实生成信息卡（`scripts/crossterminal-cards.mjs`）
 - `site.config.json` 里的域名是占位值；页脚版权年份写 `{year}` 会自动替换为当前年份
-- `public/favicon.svg` 是通用图标，可换成自己的 logo
+- `public/favicon.ico` 是通用图标，可换成自己的 logo
 
 重新生成占位图：`npm run gen:placeholders`（已存在的文件不会被覆盖）。
 
